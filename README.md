@@ -1,4 +1,8 @@
-# FLACLY
+<p align="center">
+  <img src="./Flacly%20logo.png" alt="FLACLY Logo" width="128" height="128">
+</p>
+
+<h1 align="center">FLACLY</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Audio_Core-C%2B%2B20-blue.svg?style=for-the-badge&logo=cplusplus" alt="C++20">
