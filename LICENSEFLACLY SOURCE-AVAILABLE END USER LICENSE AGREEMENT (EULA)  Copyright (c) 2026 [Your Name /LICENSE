@@ -1,0 +1,27 @@
+FLACLY SOURCE-AVAILABLE END USER LICENSE AGREEMENT (EULA)
+
+Copyright (c) 2026 Warakit Worayutthanakarn
+
+1. GRANT OF LICENSE
+Permission is hereby granted to any person obtaining a copy of this software 
+and associated documentation files ("FLACLY"), to view, compile, run, and modify 
+the source code STRICTLY FOR PERSONAL, NON-COMMERCIAL USE, or for the purpose 
+of contributing code improvements back to the official FLACLY repository.
+
+2. RESTRICTIONS
+You may NOT:
+  a) Rebrand, rename, repackage, or redistribute this software (or modified 
+     versions of it) as a standalone application on any app store or website.
+  b) Use any portion of this source code or binary for commercial purposes, 
+     monetization, or paid services without explicit prior written consent 
+     from the copyright holder.
+  c) Sub-license, sell, or rent the software.
+
+3. DISCLAIMER OF WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+SOFTWARE.
