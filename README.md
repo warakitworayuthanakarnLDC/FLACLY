@@ -36,7 +36,7 @@
 
 ---
 
-## Changelog — Version 1.2 Stable (Theoretical Systems & Memory Architecture Update)
+## Changelog — Version 1.1 Stable (Theoretical Systems & Memory Architecture Update)
 
 Version 1.2 focuses on radical runtime memory reduction, lowering active playback footprint from **117.2 MB PSS to ~78.4 MB PSS** without compromising bit-perfect output. By transitioning from general-purpose collections and naive buffer management to **discrete mathematics, succinct data structures, and kernel virtual memory primitives**, FLACLY now operates near the theoretical limits of hardware efficiency on legacy Android devices.
 
@@ -82,5 +82,5 @@ Version 1.2 focuses on radical runtime memory reduction, lowering active playbac
 | **Java / Dalvik Heap** | 16.2 MB | 14.5 MB | **8.1 MB** | **-50.0%** |
 | **Shared / IPC Dirty Memory**| 12.8 MB | 11.2 MB | **5.4 MB** | **-57.8%** |
 | **Active Playback Total PSS** | **136.4 MB** | **117.2 MB** | **78.4 MB** | **-42.5%** |
-| **Runtime GC Allocations** | High ($O(N)$) | Moderate ($O(1)$) | **Zero (Deterministic Arena)** | **Eliminated** |
+| **Runtime GC Allocations** | High | Moderate | **Zero (Deterministic Arena)** | **Eliminated** |
    
