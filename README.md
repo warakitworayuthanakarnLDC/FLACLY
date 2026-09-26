@@ -2,53 +2,28 @@
   <img src="./Flacly%20logo.png" alt="FLACLY Logo" width="128" height="128">
 </p>
 
-<h1 align="center">FLACLY</h1>
+<h1 align="center">FLACLY (Legacy Edition)</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Audio_Core-C%2B%2B20-blue.svg?style=for-the-badge&logo=cplusplus" alt="C++20">
-  <img src="https://img.shields.io/badge/Platform-Android_29%2B-brightgreen.svg?style=for-the-badge&logo=android" alt="Android">
+  <img src="https://img.shields.io/badge/Audio_Core-C%2B%2B17%2F20-blue.svg?style=for-the-badge&logo=cplusplus" alt="C++ Core">
+  <img src="https://img.shields.io/badge/Platform-Android_4.4%2B_(API_19)-brightgreen.svg?style=for-the-badge&logo=android" alt="Android 4.4+">
   <img src="https://img.shields.io/badge/Architecture-Decoupled_Engine-orange.svg?style=for-the-badge" alt="Decoupled Architecture">
-  <img src="https://img.shields.io/badge/RAM_Budget-%3C30_MB-red.svg?style=for-the-badge" alt="RAM Budget">
+  <img src="https://img.shields.io/badge/PSS_Budget-%3C80_MB-red.svg?style=for-the-badge" alt="PSS Budget">
   <img src="https://img.shields.io/badge/License-Source--Available-purple.svg?style=for-the-badge" alt="License">
 </p>
 
-**FLACLY** is an ultra-high-performance, bit-perfect offline FLAC music player for Android. Designed specifically for audiophiles and budget legacy hardware (DAPs, Snapdragon 480, older devices), FLACLY combines a decoupled high-speed native C++20 audio pipeline with a modern, glassmorphic UI.
+**FLACLY Legacy Edition** is an ultra-high-performance, bit-perfect offline FLAC audio player specifically architected for legacy Android devices (Android 4.4 KitKat / API 19+) and vintage SoC hardware (e.g., Exynos 4412, Snapdragon 400 series, legacy DAPs). 
+
+By combining low-level C++ DSP pipelines, dynamic hardware audio driver backends, and low-allocation memory structures, FLACLY delivers audiophile-grade audio playback on constrained legacy runtimes under a strict **PSS target budget of < 80 MB**.
 
 ---
 
 ## Key Features
 
-- **Bit-Perfect Audio Engine:** Powered by a decoupled C++ core utilizing `miniaudio.h` (AAudio backend) and `dr_flac.h` for native decoding up to 24-bit/96kHz.
-- **Glassmorphic UI:** Native XML Views layout featuring a sliding player sheet (`CoordinatorLayout` + `BottomSheetBehavior`), dynamic album artwork palette extraction (`stb_image.h`), and Namida/Tidal-style horizontal tab navigation (`ViewPager2`).
-- **Low Memory Footprint:** Bypasses heavy image-loading frameworks (Glide/Coil) using custom low-res thumbnail decoders to stay under a strict **30MB RAM** budget.
-- **Scoped Storage Native I/O:** Uses Android `ContentResolver` file descriptors passed directly to C++ `fdopen()` for direct disk reads without OS path restrictions.
-- **Background Playback & Foreground Service:** Integrated `MediaSessionCompat`, lock-screen notification controls, dynamic audio focus handling (ducking/pausing during calls), and `AUDIO_BECOMING_NOISY` protection for headphone unplugs.
-- **Fast Media Indexing:** Multi-threaded `MediaStore` parsing with background set operations (`Dispatchers.Default`) to scan, sort, and filter 600+ tracks instantly without UI freezing.
-
----
-
-## Technical Stack & Architecture
-
-┌─────────────────────────────────────────────────────────────┐
-│                       ANDROID UI LAYER                      │
-│        • Native Android XML Views (Glassmorphism)           │
-│        • ViewPager2 + BottomSheetBehavior                   │
-│        • AudioPlaybackService & MediaSessionCompat          │
-└──────────────────────────────┬──────────────────────────────┘
-│ JNI Bridge (File Descriptors)
-┌──────────────────────────────▼──────────────────────────────┐
-│                  DECOUPLED NATIVE C++ ENGINE                │
-│        • audio_engine.cpp    (miniaudio.h AAudio PCM stream)│
-│        • dr_flac.h           (Bit-perfect decoding)         │
-│        • color_extractor.cpp (stb_image.h K-Means palette)  │
-│        • Resampling Core     (Software sample rate match)   │
-└─────────────────────────────────────────────────────────────┘
-
-
-- **Audio Engine:** C++20 (`miniaudio.h`, `dr_flac.h`)
-- **Graphics/Colors:** C++20 (`stb_image.h`)
-- **Android Front-End:** Kotlin, AndroidX CoordinatorLayout, Material Components
-- **Build System:** CMake, Android NDK (r25+), Gradle
-
-
-   
+- **Dynamic Audio Driver Selection:** User-selectable output driver architecture supporting **AudioTrack (Zero-Copy JNI / S16 PCM)** for bug-free playback on legacy Exynos/Samsung vendor builds (`libOpenSLES.so` workaround), alongside native **OpenSL ES** and **AAudio** for modern devices.
+- **Fixed-Point S16 PCM Decoding:** Operates on 16-bit Signed Linear PCM quantization ($98.09\text{ dB}$ dynamic range) to eliminate CPU-heavy floating-point ($f32$) mixing overhead on legacy ARM Cortex-A9 processors without hardware vectoring.
+- **Zero-Resampling Queue Alignment:** Queries native hardware properties (`PROPERTY_OUTPUT_SAMPLE_RATE` and `PROPERTY_OUTPUT_FRAMES_PER_BUFFER`) via `AudioManager` to feed buffers directly into `AudioFlinger`, completely bypassing software resampling and driver popping.
+- **Low-Memory PSS Bounds (< 80 MB):** Built with static arena allocation (Interval Graph Coloring), columnar data layouts (PAX), and zero-allocation JNI direct byte buffer mapping (`NewDirectByteBuffer`) to stabilize heap size under high track loads.
+- **Fast B-Tree Metadata Indexing:** Bypasses unstable legacy `MediaMetadataRetriever` / Stagefright Binder IPC calls by querying SQLite `MediaStore` B-Tree indexes directly for instant, lock-free track indexing.
+- **Fast Octree Color Extraction:** Downsamples artwork matrices to $32 \times 32$ pixels and evaluates dominant palettes in C++ using Octree spatial color quantization in $O(N \log K)$ runtime.
+- **AppCompat Legacy Dark Theme:** High-contrast, WCAG-compliant UI styling tailored for pre-Lollipop Material backports, resolving dark popup transparency bugs on Android 4.4.
