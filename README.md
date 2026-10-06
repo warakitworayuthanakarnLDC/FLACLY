@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./FMDProELab%(5).png" alt="FLACLY Logo" width="128" height="128">
+  <img src="./flacly.png" alt="FLACLY Logo" width="128" height="128">
 </p>
 
 <h1 align="center">FLACLY</h1>
